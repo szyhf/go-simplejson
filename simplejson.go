@@ -1,14 +1,15 @@
 package simplejson
 
 import (
-	"encoding/json"
 	"errors"
 	"log"
+
+	"github.com/json-iterator/go"
 )
 
 // returns the current implementation version
 func Version() string {
-	return "0.5.0"
+	return "0.6.0"
 }
 
 type Json struct {
@@ -45,12 +46,12 @@ func (j *Json) Encode() ([]byte, error) {
 
 // EncodePretty returns its marshaled data as `[]byte` with indentation
 func (j *Json) EncodePretty() ([]byte, error) {
-	return json.MarshalIndent(&j.data, "", "  ")
+	return jsoniter.MarshalIndent(&j.data, "", "  ")
 }
 
 // Implements the json.Marshaler interface.
 func (j *Json) MarshalJSON() ([]byte, error) {
-	return json.Marshal(&j.data)
+	return jsoniter.Marshal(&j.data)
 }
 
 // Set modifies `Json` map by `key` and `value`
